@@ -4,7 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ApprovalsPanel } from '@/components/dashboard/rescue/ApprovalsPanel';
 import { OldContractsPanel } from '@/components/dashboard/rescue/OldContractsPanel';
 import { DustSweeper } from '@/components/dashboard/rescue/DustSweeper';
-import { KeyRound, Landmark, BrushCleaning, Gem } from 'lucide-react';
+import { FundsScannerPanel } from '@/components/dashboard/rescue/FundsScannerPanel';
+import { Landmark, Gem, Radar } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
 
 export function RescuePanel({ selectedChains }: { selectedChains: number[] }) {
@@ -27,18 +28,24 @@ export function RescuePanel({ selectedChains }: { selectedChains: number[] }) {
           <Gem className="h-2.5 w-2.5" /> {t('rescue.oneClick')}
         </span>
       </div>
-      <Tabs defaultValue="approvals" className="relative p-3">
-        <TabsList className="mb-3 grid w-full grid-cols-3 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-1 backdrop-blur">
+      <Tabs defaultValue="funds" className="relative p-3">
+        <TabsList className="mb-3 grid w-full grid-cols-4 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-1 backdrop-blur">
+          <TabsTrigger value="funds" className="gap-1 rounded-xl px-1 text-[11px] font-semibold text-zinc-500 transition data-[state=active]:bg-gradient-to-br data-[state=active]:from-violet-600/30 data-[state=active]:to-cyan-600/20 data-[state=active]:text-zinc-100 data-[state=active]:shadow-inner sm:text-xs">
+           {t('rescue.tabFunds')}
+          </TabsTrigger>
           <TabsTrigger value="approvals" className="gap-1 rounded-xl px-1 text-[11px] font-semibold text-zinc-500 transition data-[state=active]:bg-gradient-to-br data-[state=active]:from-violet-600/30 data-[state=active]:to-cyan-600/20 data-[state=active]:text-zinc-100 data-[state=active]:shadow-inner sm:text-xs">
-            <KeyRound className="hidden h-3.5 w-3.5 sm:block" /> {t('rescue.tabApprovals')}
+           {t('rescue.tabApprovals')}
           </TabsTrigger>
           <TabsTrigger value="contracts" className="gap-1 rounded-xl px-1 text-[11px] font-semibold text-zinc-500 transition data-[state=active]:bg-gradient-to-br data-[state=active]:from-violet-600/30 data-[state=active]:to-cyan-600/20 data-[state=active]:text-zinc-100 data-[state=active]:shadow-inner sm:text-xs">
-            <Landmark className="hidden h-3.5 w-3.5 sm:block" /> {t('rescue.tabContracts')}
+           {t('rescue.tabManual')}
           </TabsTrigger>
           <TabsTrigger value="dust" className="gap-1 rounded-xl px-1 text-[11px] font-semibold text-zinc-500 transition data-[state=active]:bg-gradient-to-br data-[state=active]:from-violet-600/30 data-[state=active]:to-cyan-600/20 data-[state=active]:text-zinc-100 data-[state=active]:shadow-inner sm:text-xs">
-            <BrushCleaning className="hidden h-3.5 w-3.5 sm:block" /> {t('rescue.tabMassive')}
+           {t('rescue.tabMassive')}
           </TabsTrigger>
         </TabsList>
+        <TabsContent value="funds">
+          <FundsScannerPanel />
+        </TabsContent>
         <TabsContent value="approvals">
           <ApprovalsPanel selectedChains={selectedChains} />
         </TabsContent>

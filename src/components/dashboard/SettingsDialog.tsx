@@ -96,6 +96,15 @@ export function SettingsDialog({
               onChange={(e) => setWcId(e.target.value)}
               className="bg-zinc-950 border-zinc-800"
             />
+            <p
+              className="text-xs text-zinc-500 [&_a]:text-[#5fa9fb] [&_a]:underline [&_b]:text-zinc-300"
+              dangerouslySetInnerHTML={{
+                __html: t('settings.wcHelp').replace(
+                  'cloud.walletconnect.com',
+                  '<a href="https://cloud.walletconnect.com" target="_blank" rel="noreferrer">cloud.walletconnect.com</a>',
+                ),
+              }}
+            />
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
