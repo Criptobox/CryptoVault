@@ -1,0 +1,47 @@
+{
+  "name": "CryptoVault — Dashboard multi-red",
+  "short_name": "CryptoVault",
+  "description": "Todos tus tokens y NFTs en todas las redes. Rescata fondos de contratos viejos, revoca aprobaciones y recibe alertas de precio. No custodial.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "lang": "es",
+  "categories": ["finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Radar de Airdrops",
+      "short_name": "Airdrops",
+      "description": "Escanea y verifica airdrops reclamables, pendientes o cerca de reclamar",
+      "url": "./?tab=airdrops"
+    },
+    {
+      "name": "Centro de Rescate",
+      "short_name": "Rescate",
+      "description": "Revoca aprobaciones y rescata fondos de contratos viejos",
+      "url": "./?tab=rescate"
+    }
+  ]
+}
