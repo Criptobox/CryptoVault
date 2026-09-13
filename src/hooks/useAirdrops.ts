@@ -15,6 +15,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { collectWalletStats } from '@/lib/api/airdropScan';
 import { AIRDROPS_DB, type AirdropDef, type UserAirdropStatus, type ScanContext, type CriterionResult } from '@/config/airdrops';
+import { CHAINS } from '@/config/chains';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { useActiveAddress } from '@/hooks/useActiveAddress';
 import { useAppStore } from '@/lib/store';
@@ -68,10 +69,10 @@ export function useAirdrops(selectedChains?: number[]) {
     retry: 1,
     queryFn: async () => {
       if (!address) return null;
-      // Escaneamos las cadenas con exploradores públicos relevantes + todas las soportadas por Blockscout
-      const chains = [
-        1, 137, 10, 42161, 8453, 100, 59144, 534352, 324, 56, 250, 43114, 130, 8217, 25, 5000,
-      ];
+      // ESCANEO EN TODAS LAS REDES soportadas: Blockscout público (13 redes)
+      // + Etherscan V2 con key + nonce RPC como último recurso, así ninguna
+      // cadena soportada queda fuera del radar.
+      const chains = CHAINS.map((c) => c.id);
       return collectWalletStats(address, chains);
     },
   });

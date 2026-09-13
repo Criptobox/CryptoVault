@@ -15,7 +15,7 @@ export type { Lang } from '@/lib/store';
 
 let currentLang: 'es' | 'en' = 'es';
 
-/** Traducción con interpolación: t('key', {n: 3}) reemplaza {n} */
+/** Traducción con interpolación: reemplaza {n} en la cadena por el valor dado. */
 function translate(key: string, params?: Record<string, string | number>, lang?: 'es' | 'en'): string {
   const l = lang ?? currentLang;
   const raw = DICT[l]?.[key] ?? DICT.es[key] ?? key;

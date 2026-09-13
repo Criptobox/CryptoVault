@@ -22,10 +22,12 @@ export function Providers({ children }: { children: ReactNode }) {
       }),
   );
 
-  // Recrear config solo si cambia el projectId de WalletConnect
+  // Recrear config solo si cambia el projectId de WalletConnect.
+  // La key remonta el provider para que wagmi reconstruya conectores sin estado residual.
+  const projectId = settings.walletConnectProjectId || undefined;
   const { config } = useMemo(
-    () => buildWagmiConfig(settings.walletConnectProjectId || undefined),
-    [settings.walletConnectProjectId],
+    () => buildWagmiConfig(projectId),
+    [projectId],
   );
 
   // Hidratar tras el montaje (zustand persist) — sin setState en effect
@@ -39,7 +41,7 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-      <WagmiProvider config={config}>
+      <WagmiProvider key={projectId ?? 'wc-none'} config={config}>
         <QueryClientProvider client={queryClient}>
           <LangProvider>
             {children}

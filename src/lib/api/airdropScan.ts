@@ -29,6 +29,10 @@ const BLOCKSCOUT: Record<number, string> = {
   59144: 'https://linea.blockscout.com',
   534352: 'https://scroll.blockscout.com',
   324: 'https://zksync.blockscout.com',
+  5000: 'https://explorer.mantle.xyz',
+  2222: 'https://kavascan.com',
+  1329: 'https://seitrace.com',
+  130: 'https://uniscan.xyz',
 };
 
 function explorerKey(): string {
@@ -116,6 +120,20 @@ async function fetchChainStats(chainId: number, address: string): Promise<ChainS
       return { txs: recent.length >= 50 ? 50 : recent.length, firstTxTs, sampleContracts: sample };
     }
     void lower;
+  }
+
+  // Último recurso SIN explorador: nonce RPC = nº de txs salientes.
+  // Así TODAS las redes soportadas aportan actividad al radar, incluso sin
+  // Blockscout ni API key.
+  const chain = getChain(chainId);
+  if (chain) {
+    try {
+      const client = createPublicClient({ chain: chain.viemChain as Chain, transport: publicClientTransport(chainId) });
+      const nonce = await client.getTransactionCount({ address: address as `0x${string}` });
+      return { txs: nonce, firstTxTs: null, sampleContracts: [] };
+    } catch {
+      return null;
+    }
   }
   return null;
 }

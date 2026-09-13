@@ -80,6 +80,10 @@ interface AppState {
   aggregateMode: boolean;
   /** tokens marcados manualmente como spam: "chainId:address" en minúsculas */
   spamTokens: string[];
+  /** UI transient: diálogo de conexión abierto (sobrevive remontajes del provider; no se persiste) */
+  connectModalOpen: boolean;
+  /** UI transient: conectar por QR automáticamente cuando el provider se reconfigure */
+  wcAutoConnect: boolean;
   setSettings: (s: Partial<Settings>) => void;
   pushNotification: (n: Omit<AppNotification, 'id' | 'ts' | 'read'>) => void;
   markAllRead: () => void;
@@ -96,6 +100,8 @@ interface AppState {
   setAggregateMode: (v: boolean) => void;
   addSpamToken: (key: string) => void;
   removeSpamToken: (key: string) => void;
+  setConnectModalOpen: (v: boolean) => void;
+  setWcAutoConnect: (v: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -118,6 +124,8 @@ export const useAppStore = create<AppState>()(
       activeAddressOverride: null,
       aggregateMode: false,
       spamTokens: [],
+      connectModalOpen: false,
+      wcAutoConnect: false,
       setSettings: (s) => set((st) => ({ settings: { ...st.settings, ...s } })),
       pushNotification: (n) =>
         set((st) => ({
@@ -175,10 +183,19 @@ export const useAppStore = create<AppState>()(
         set((st) => ({ spamTokens: [...new Set([key.toLowerCase(), ...st.spamTokens])].slice(0, 500) })),
       removeSpamToken: (key) =>
         set((st) => ({ spamTokens: st.spamTokens.filter((k) => k !== key.toLowerCase()) })),
+      setConnectModalOpen: (v) => set({ connectModalOpen: v }),
+      setWcAutoConnect: (v) => set({ wcAutoConnect: v }),
     }),
     {
       name: 'cryptovault-store',
       version: 2,
+      // Excluir del persistido los flags transitorios de UI (siempre inician en false)
+      partialize: (st) => {
+        const rest = { ...st } as Partial<AppState>;
+        delete rest.connectModalOpen;
+        delete rest.wcAutoConnect;
+        return rest;
+      },
       // v1 → v2: conservar datos y rellenar las claves nuevas con defaults
       migrate: (persisted) => persisted as never,
       merge: (persisted, current) => {
