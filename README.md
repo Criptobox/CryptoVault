@@ -14,14 +14,34 @@ Dashboard **no custodial** para tu wallet: todos tus tokens y NFTs en **23 redes
 | 🌐 **23 redes con logos** | Ethereum, BSC, Polygon, Arbitrum, Base, Optimism, Avalanche, opBNB, Fantom, zkSync, Linea, Scroll, Gnosis, Mantle, Cronos, Moonbeam, Canto, Core, Kava, Celo, Polygon zkEVM, Unichain, Sei |
 | 🪙 **Todos los tokens** | Lista integrada de tokens principales + **descubrimiento automático de TODOS tus tokens** (con API key) + importar cualquier ERC-20 por dirección |
 | 💰 **Precios en vivo** | CoinGecko (gratis, sin clave) para nativos y ERC-20 |
-| 🏦 **Centro de Rescate** | 3 módulos: revocar aprobaciones · **retirar de contratos viejos en 1 clic** (detecta withdraw/claim/emergencyWithdraw) · rescate masivo de polvo en 1 sola transacción (Multicall3) |
-| 🪂 **Radar de Airdrops** | **Escanea y verifica airdrops accesibles con tu cartera**: los clasifica en *Reclamable ahora*, *Pendiente de reclamo*, *Cerca de reclamar*, *Acumulando* o *Finalizado* según tu actividad on-chain real (transacciones, antigüedad, protocolos usados, balances). Incluye **verificador de CUALQUIER contrato de claim** con simulación segura y **reclamo en 1 clic**. Funciona sin API key (Blockscout público) |
+| 🏦 **Centro de Rescate** | 4 módulos: **escáner de fondos rescatables en las 23 redes** · revocar aprobaciones · retiro manual de contratos viejos (ABI) · rescate masivo de polvo en 1 sola transacción (Multicall3) |
+| 🪂 **Radar de Airdrops** | **Escanea y verifica airdrops accesibles con tu cartera en TODAS las redes soportadas** (Blockscout público + nonce RPC, sin API key): los clasifica en *Reclamable ahora*, *Pendiente de reclamo*, *Cerca de reclamar*, *Acumulando* o *Finalizado* según tu actividad on-chain real (transacciones, antigüedad, protocolos usados, balances). Incluye **verificador de CUALQUIER contrato de claim** con simulación segura y **reclamo en 1 clic** |
 | 🖼️ **Galería NFT** | Detecta tus ERC-721 en todas las redes y enlaza directamente a **OpenSea, Blur, Magic Eden, OKX y Element** para ver precios y vender |
 | 🔔 **Notificaciones** | Alertas de precio (sube/baja), estado de transacciones y avisos de seguridad — con notificaciones del sistema |
 | 💡 **Recomendaciones** | Puntuación de salud de cartera + consejos dinámicos según tus aprobaciones, polvo y concentración |
 | 📱 **PWA instalable** | Windows, Android (APK), iOS e incluso escritorio Linux — ver guía abajo |
 
 ---
+
+## 🆕 Novedades v5 — Escáner de fondos rescatables + optimización
+
+| # | Novedad | Dónde |
+|---|---------|-------|
+| 1 | 🎯 **Escáner de Fondos Rescatables** — pega CUALQUIER dirección (o usa tu cartera) y un clic detecta automáticamente fondos atrapados en contratos viejos en **las 23 redes**: farms MasterChef deprecados, staking cerrado, presales, vesting, vaults reemplazados… ideal para dApps que actualizaron su web y ya no exponen la versión vieja | Rescate → **Fondos** |
+| 2 | 🔓 **Botón RESCATAR por cada fondo** — la app encuentra la función de retiro real (withdraw/exit/emergencyWithdraw(pid)/redeem/unstake/claim…), la **simula on-chain** y solo muestra el botón si el rescate funcionaría hoy. Modo lectura = ves todo, el botón se activa al conectar la cartera firmante | Rescate → Fondos |
+| 3 | 🧠 **Detección sin configuración** — funciona sin API key: Blockscout público (13 redes) + nonce RPC para el resto; con tu API key de Etherscan el historial es completo. Extrae el `pid` de tus deposits viejos desde el historial para sondear pools exactas de MasterChef | Automático |
+| 4 | 🪂 **Airdrops en TODAS las redes** — el radar ahora escanea las 23 redes soportadas (antes 9-16): Blockscout + Etherscan + nonce RPC como último recurso, ninguna cadena se queda fuera | Radar de Airdrops |
+| 5 | 🆕 **21 airdrops** — añadidos Morpho, megaETH, Linea·Ecosistema, Scroll·Sessions con criterios evaluables; más redes en los criterios de OpenSea y MetaMask | Radar de Airdrops |
+| 6 | ⚡ **Optimización de rendimiento** — bundles divididos con carga diferida (gráfico, radar, NFTs, rescate, gas, buscador y diálogos cargan solo cuando toca), `memo` contra re-renders en cascada y la escena aurora redibujada sin `filter: blur(90px)` animado (el mayor coste de GPU) → primera pintura y scroll mucho más fluidos, sobre todo en móvil | Global |
+| 7 | 💾 **Escaneo guardado 6 h** — los resultados del escáner de fondos se cachean por dirección; al volver se muestran al instante con badge «escaneo guardado» | Rescate → Fondos |
+
+## 🆕 Novedades v4 — WalletConnect QR
+
+| # | Novedad | Dónde |
+|---|---------|-------|
+| 1 | 📱 **Conexión por QR (WalletConnect v2)** — conecta 400+ carteras móviles escaneando un QR, con modal oficial en tema oscuro | Fila «WalletConnect · QR» en el diálogo de conexión |
+| 2 | 🧾 **Setup guiado del Project ID** — diálogo paso a paso con enlace directo a cloud.walletconnect.com; se guarda solo en tu dispositivo y auto-conecta al guardar | Fila WalletConnect → 1ª vez |
+| 3 | 🔗 **Deep-links móviles + 23 redes** — la sesión QR soporta abrir la cartera por enlace en el móvil y todas las cadenas del dashboard | Automático |
 
 ## 🆕 Novedades v3 — las 16 mejoras
 
@@ -55,6 +75,27 @@ El radar escanea tu actividad on-chain real y puntúa 17 airdrops curados (OP, E
 - **Verificador universal**: pega el contrato de claim de cualquier airdrop y la app sondea on-chain (`claimable(address)`, `isClaimed`, saldo del contrato…) y **simula el reclamo sin firmar nada**; si es viable, aparece el botón de **reclamar en 1 clic** y el airdrop se guarda en tu radar.
 - **Notificaciones**: al terminar cada escaneo te avisamos de cuántos reclamables, pendientes y «cerca de reclamar» tienes.
 - **Seguridad**: todo el escaneo es solo lectura; ninguna transacción se firma sin tu revisión. Reclama siempre desde el sitio oficial.
+
+---
+
+## 📱 Conectar por QR — WalletConnect (nuevo en v4)
+
+Además de MetaMask, Rabby, Coinbase Wallet y Safe (extensión de navegador), ahora puedes **conectar cualquier cartera de móvil escaneando un código QR** con WalletConnect v2: MetaMask Mobile, Trust Wallet, OKX Wallet, Bitget, Binance Wallet, Zerion, Phantom EVM y más de 400 carteras.
+
+**Cómo conectar por QR (1 minuto):**
+
+1. Abre la app y pulsa **«Conectar Cartera»**.
+2. Toca la fila azul **WalletConnect · QR** (fijada arriba).
+3. La primera vez la app te pedirá un **Project ID gratuito**: crea una cuenta en <https://cloud.walletconnect.com> (plan Free, sin tarjeta), copia el *Project ID* de tu proyecto y pégalo en el diálogo. Se guarda **solo en tu dispositivo**.
+4. Al guardar, la app se reconfigura sola y **abre el QR al instante**: escanéalo con tu cartera (en MetaMask: *Cartera → Escanear código QR*) y confirma el emparejamiento.
+5. Las siguientes veces el QR abre directamente, sin repetir la configuración.
+
+**Detalles útiles:**
+
+- El modal oficial de WalletConnect se muestra en **tema oscuro** con la marca de la app; también permite abrir la cartera por **deep-link** si estás en el móvil.
+- La conexión soporta **las 23 redes** del dashboard: la cartera aprobará las cadenas que use al emparejar.
+- Si el Project ID es inválido, el relay responde «Project not found»: vuelve a Ajustes y revísalo.
+- ¿Sin Project ID y sin extensiones? Recuerda que siempre puedes usar el **modo lectura** pegando la dirección.
 
 ---
 
@@ -111,7 +152,7 @@ bubblewrap build   # genera app-release-signed.apk
 | Clave | Para qué | Dónde obtenerla |
 |---|---|---|
 | **Etherscan V2** (1 clave = todas las redes) | Descubrir TODOS tus tokens, NFTs y aprobaciones | <https://etherscan.io/apis> (gratis) |
-| **WalletConnect Project ID** | Conectar carteras de móvil por QR | <https://cloud.walletconnect.com> (gratis) |
+| **WalletConnect Project ID** | Conectar carteras de móvil **por QR** (fila WalletConnect del diálogo de conexión) | <https://cloud.walletconnect.com> (gratis, sin tarjeta) |
 
 Ambas se guardan **solo en tu dispositivo** (localStorage). Sin ellas la app funciona con: tokens principales, saldo nativo, precios, rescate de contratos (pegando ABI) y barre-polvo.
 
