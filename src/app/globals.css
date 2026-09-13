@@ -1,0 +1,433 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   AURUM OBSIDIAN — Sistema de diseño premium
+   Obsidiana profunda + aurora iridiscente + vidrio esmerilado
+   ============================================================ */
+
+/* Remap fino de la escala zinc → obsidiana con matiz violeta.
+   Esto eleva TODA la app a tonos premium de forma consistente. */
+@theme {
+  --color-zinc-50: #fafafd;
+  --color-zinc-100: #f2f2f8;
+  --color-zinc-200: #dddce8;
+  --color-zinc-300: #b9b8cb;
+  --color-zinc-400: #8e8da6;
+  --color-zinc-500: #65647e;
+  --color-zinc-600: #454458;
+  --color-zinc-700: #2c2b3b;
+  --color-zinc-800: #1a1927;
+  --color-zinc-900: #0d0c17;
+  --color-zinc-950: #06050c;
+
+  --color-champagne: #e8c877;
+
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float-slow: float-slow 14s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-glow-pulse: glow-pulse 3.2s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(4%, -6%, 0) scale(1.08); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #06050c;
+  --foreground: #f2f2f8;
+  --card: #0d0c17;
+  --card-foreground: #f2f2f8;
+  --popover: #0c0b16;
+  --popover-foreground: #f2f2f8;
+  --primary: #f2f2f8;
+  --primary-foreground: #0d0c17;
+  --secondary: #171628;
+  --secondary-foreground: #dddce8;
+  --muted: #151425;
+  --muted-foreground: #8e8da6;
+  --accent: #171628;
+  --accent-foreground: #dddce8;
+  --destructive: oklch(0.63 0.2 25);
+  --border: rgba(255, 255, 255, 0.07);
+  --input: rgba(255, 255, 255, 0.09);
+  --ring: rgba(139, 92, 246, 0.55);
+  --chart-1: #8b5cf6;
+  --chart-2: #22d3ee;
+  --chart-3: #34d399;
+  --chart-4: #f0b90b;
+  --chart-5: #f472b6;
+  --sidebar: #0d0c17;
+  --sidebar-foreground: #f2f2f8;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #171628;
+  --sidebar-accent-foreground: #dddce8;
+  --sidebar-border: rgba(255, 255, 255, 0.07);
+  --sidebar-ring: rgba(139, 92, 246, 0.55);
+}
+
+.dark {
+  --background: #06050c;
+  --foreground: #f2f2f8;
+  --card: #0d0c17;
+  --card-foreground: #f2f2f8;
+  --popover: #0c0b16;
+  --popover-foreground: #f2f2f8;
+  --primary: #f2f2f8;
+  --primary-foreground: #0d0c17;
+  --secondary: #171628;
+  --secondary-foreground: #dddce8;
+  --muted: #151425;
+  --muted-foreground: #8e8da6;
+  --accent: #171628;
+  --accent-foreground: #dddce8;
+  --destructive: oklch(0.63 0.2 25);
+  --border: rgba(255, 255, 255, 0.07);
+  --input: rgba(255, 255, 255, 0.09);
+  --ring: rgba(139, 92, 246, 0.55);
+  --chart-1: #8b5cf6;
+  --chart-2: #22d3ee;
+  --chart-3: #34d399;
+  --chart-4: #f0b90b;
+  --chart-5: #f472b6;
+  --sidebar: #0d0c17;
+  --sidebar-foreground: #f2f2f8;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #171628;
+  --sidebar-accent-foreground: #dddce8;
+  --sidebar-border: rgba(255, 255, 255, 0.07);
+  --sidebar-ring: rgba(139, 92, 246, 0.55);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04";
+  }
+  ::selection {
+    background: rgba(139, 92, 246, 0.35);
+    color: #fff;
+  }
+}
+
+/* ---------- Scrollbar premium ---------- */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.16); }
+html { scrollbar-color: rgba(255, 255, 255, 0.12) transparent; }
+
+@layer utilities {
+  /* ---- Tarjeta de vidrio premium con brillo superior ---- */
+  .glass-card {
+    position: relative;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.012) 45%, rgba(255, 255, 255, 0.028) 100%),
+      rgba(11, 10, 20, 0.72);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+      0 1px 2px rgba(0, 0, 0, 0.5),
+      0 12px 32px -12px rgba(0, 0, 0, 0.6);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.13);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.09),
+      0 1px 2px rgba(0, 0, 0, 0.5),
+      0 18px 44px -14px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(139, 92, 246, 0.08);
+  }
+
+  /* ---- Borde con gradiente iridiscente (para héroes) ---- */
+  .iridescent-border {
+    position: relative;
+    border-radius: 1.5rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%),
+      rgba(10, 9, 19, 0.82);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+  }
+  .iridescent-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.55), rgba(34, 211, 238, 0.32) 38%, rgba(52, 211, 153, 0.28) 62%, rgba(232, 200, 119, 0.34));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ---- Texto con gradiente aurora ---- */
+  .text-aurora {
+    background: linear-gradient(100deg, #f4f4f8 0%, #c4b5fd 34%, #67e8f9 66%, #6ee7b7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Escena aurora de fondo ---- */
+  .aurora-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.32;
+    will-change: transform;
+  }
+  .aurora-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+  .noise-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.34'/%3E%3C/svg%3E");
+  }
+
+  /* ---- Botón CTA premium con gradiente ---- */
+  .btn-aurora {
+    position: relative;
+    background: linear-gradient(120deg, #7c3aed, #a855f7 42%, #06b6d4);
+    background-size: 160% 100%;
+    color: #fff;
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.18) inset,
+      0 8px 24px -8px rgba(139, 92, 246, 0.55);
+    transition: background-position 0.5s ease, box-shadow 0.35s ease, transform 0.25s ease;
+  }
+  .btn-aurora:hover {
+    background-position: 100% 0;
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.22) inset,
+      0 10px 30px -8px rgba(139, 92, 246, 0.75);
+  }
+  .btn-aurora:active { transform: translateY(1px); }
+
+  /* ---- Chip premium ---- */
+  .chip-glass {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  }
+
+  /* ---- Skeleton con shimmer ---- */
+  .skeleton-shimmer {
+    background: linear-gradient(100deg, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 60%);
+    background-size: 200% 100%;
+    animation: shimmer 2.2s linear infinite;
+  }
+
+  /* ---- Números tabulares premium ---- */
+  .nums { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+  /* ---- Anillo de logo de red ---- */
+  .logo-halo {
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.12),
+      0 2px 8px -2px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ---- Radar de Airdrops: entrada escalonada de tarjetas ---- */
+@keyframes airdrop-enter {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.airdrop-card-enter {
+  animation: airdrop-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- Badge dorado pulsante para "RECLAMABLE AHORA" ---- */
+@keyframes airdrop-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 193, 61, 0.35); }
+  50% { box-shadow: 0 0 16px 3px rgba(245, 193, 61, 0.22); }
+}
+.airdrop-badge-pulse {
+  animation: airdrop-pulse 2.2s ease-in-out infinite;
+}
+
+/* ============================================================
+   TEMA CLARO — AURUM IVORY
+   next-themes añade la clase `light` al <html>.
+   Overrides focalizados: mantienen el look premium en modo claro.
+   ============================================================ */
+html.light {
+  color-scheme: light;
+  --background: #f4f2ec;
+  --foreground: #1b1a26;
+  --card: #ffffff;
+  --card-foreground: #1b1a26;
+  --popover: #ffffff;
+  --popover-foreground: #1b1a26;
+  --primary: #1b1a26;
+  --primary-foreground: #fafafd;
+  --secondary: #ece9e0;
+  --secondary-foreground: #2c2b3b;
+  --muted: #ece9e0;
+  --muted-foreground: #6b6a80;
+  --accent: #ece9e0;
+  --accent-foreground: #2c2b3b;
+  --border: rgba(20, 18, 40, 0.1);
+  --input: rgba(20, 18, 40, 0.13);
+  --ring: rgba(109, 40, 217, 0.45);
+  --sidebar: #ffffff;
+  --sidebar-border: rgba(20, 18, 40, 0.08);
+}
+
+html.light body {
+  background: linear-gradient(180deg, #f7f5f0 0%, #f2efe7 60%, #efece3 100%);
+  color: #1b1a26;
+}
+
+/* --- Superficies de vidrio en claro --- */
+html.light .glass-card {
+  border: 1px solid rgba(20, 18, 40, 0.09);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 255, 255, 0.8) 100%);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(30, 25, 60, 0.06),
+    0 12px 32px -14px rgba(30, 25, 60, 0.18);
+}
+html.light .glass-card:hover {
+  border-color: rgba(20, 18, 40, 0.16);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
+    0 18px 44px -14px rgba(30, 25, 60, 0.24),
+    0 0 0 1px rgba(139, 92, 246, 0.1);
+}
+html.light .iridescent-border {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.78) 100%);
+}
+html.light .chip-glass {
+  border: 1px solid rgba(20, 18, 40, 0.1);
+  background: rgba(20, 18, 40, 0.035);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+}
+html.light .text-aurora {
+  background: linear-gradient(100deg, #2a2440 0%, #6d28d9 34%, #0e7490 66%, #065f46 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+html.light .skeleton-shimmer {
+  background: linear-gradient(100deg, rgba(20,18,40,0.05) 40%, rgba(20,18,40,0.11) 50%, rgba(20,18,40,0.05) 60%);
+  background-size: 200% 100%;
+}
+
+/* --- Escena aurora más sutil en claro --- */
+html.light .aurora-blob { opacity: 0.17; }
+html.light .aurora-grid {
+  background-image:
+    linear-gradient(rgba(20, 18, 40, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 18, 40, 0.045) 1px, transparent 1px);
+}
+html.light .noise-overlay { opacity: 0.18; }
+
+/* --- Textos utilitarios sobre fondos claros --- */
+html.light [class*="bg-white/["] { background-color: rgba(20, 18, 40, 0.035); }
+html.light [class*="border-white/["] { border-color: rgba(20, 18, 40, 0.1); }
+html.light [class*="bg-zinc-950"], html.light [class*="bg-zinc-900"] { background-color: #ffffff; }
+html.light [class*="border-zinc-800"], html.light [class*="border-zinc-900"] { border-color: rgba(20, 18, 40, 0.12); }
+html.light [class*="bg-[#0c0b16"], html.light [class*="bg-[#06050c"] { background-color: rgba(255, 255, 255, 0.92); }
+html.light [class*="divide-white/"] > :not([hidden]) ~ :not([hidden]) { border-color: rgba(20, 18, 40, 0.08); }
+html.light [class*="bg-black/40"], html.light [class*="bg-black/60"] { background-color: rgba(30, 25, 60, 0.55); }
+
+/* Superficies oscuras explícitas → blanco */
+html.light .bg-zinc-900\/60, html.light .bg-zinc-900\/40 { background-color: rgba(255, 255, 255, 0.75); }
+
+/* Scrollbar claro */
+html.light ::-webkit-scrollbar-thumb { background: rgba(20, 18, 40, 0.18); background-clip: content-box; }
+html.light { scrollbar-color: rgba(20, 18, 40, 0.22) transparent; }
